@@ -7,10 +7,10 @@
 	"license": "Proprietary",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/TheAndrewCWang/blog.git"
+		"url": "https://github.com/Andrew-Chen-Wang/blog.git"
 	},
-	"bugs": "https://github.com/TheAndrewCWang/blog/issues",
-	"homepage": "https://github.com/TheAndrewCWang/blog",
+	"bugs": "https://github.com/Andrew-Chen-Wang/blog/issues",
+	"homepage": "https://github.com/Andrew-Chen-Wang/blog",
 	"files": [
 		"*"
 	],
