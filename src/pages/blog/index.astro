@@ -11,11 +11,11 @@ import HeroImage from "@src/components/blog/HeroImage.astro";
 const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
 const localeUrlPrefix = getLocaleUrlPrefix(Astro.url);
 
-const posts = (await getCollection("blog", (entry) => entry.slug.startsWith(`${locale}/`)))
+const posts = (await getCollection("blog", (entry) => entry.id.startsWith(`${locale}/`)))
 	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
 	.map<CollectionEntry<"blog"> & { href: string }>((post) => {
 		return {
-			href: localeUrlPrefix + "/blog" + post.slug.replace(locale, "") + "/",
+			href: localeUrlPrefix + "/blog" + post.id.replace(locale, "") + "/",
 			...post,
 		};
 	});

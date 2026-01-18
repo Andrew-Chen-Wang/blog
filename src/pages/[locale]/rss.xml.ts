@@ -18,7 +18,7 @@ export function getStaticPaths() {
  * @param site - An object containing information about the current site.
  * @returns A response object containing the generated RSS feed.
  */
-export const get: APIRoute = async function get({ params, redirect, site }) {
+export const GET: APIRoute = async function GET({ params, redirect, site }) {
 	const locale = params.locale;
 
 	if (!locale) {
@@ -32,7 +32,7 @@ export const get: APIRoute = async function get({ params, redirect, site }) {
 		return redirect("/rss.xml");
 	}
 
-	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(locale));
+	const posts = await getCollection("blog", (entry) => entry.id.startsWith(locale));
 
 	if (posts.length === 0) {
 		return new Response(null, {
@@ -47,7 +47,7 @@ export const get: APIRoute = async function get({ params, redirect, site }) {
 		site: site!.href,
 		items: posts.map((post) => ({
 			...post.data,
-			link: `/blog/${post.slug.replace(`${locale}/`, "")}/`,
+			link: `/blog/${post.id.replace(`${locale}/`, "")}/`,
 		})),
 	});
 

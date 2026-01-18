@@ -1,13 +1,13 @@
 ---
-import { type CollectionEntry, getCollection, getEntry } from "astro:content";
+import { type CollectionEntry, getCollection, getEntry, render } from "astro:content";
 import BlogItem from "@layouts/BlogItem.astro";
 import { getLocale } from "astro-i18n-aut";
 import { DEFAULT_LOCALE } from "../../consts";
 
 export async function getStaticPaths() {
-	const posts = await getCollection("blog", (entry) => entry.slug.startsWith(DEFAULT_LOCALE + "/"));
+	const posts = await getCollection("blog", (entry) => entry.id.startsWith(DEFAULT_LOCALE + "/"));
 	return posts.map((post) => ({
-		params: { slug: post.slug.replace(`${DEFAULT_LOCALE}/`, "") },
+		params: { slug: post.id.replace(`${DEFAULT_LOCALE}/`, "") },
 	}));
 }
 
@@ -18,7 +18,7 @@ const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
 
 const post = await getEntry({
 	collection: "blog",
-	slug: locale + "/" + slug,
+	id: locale + "/" + slug,
 });
 if (!post) {
 	return new Response(null, {
@@ -26,7 +26,7 @@ if (!post) {
 		statusText: "Not found",
 	});
 }
-const { Content } = await post.render();
+const { Content } = await render(post);
 ---
 
 <BlogItem {...post.data}>
