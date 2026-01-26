@@ -19,6 +19,7 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
 			}
 		}
 	}`}
+	@tag-filter.window="selectedTag = $event.detail.tag"
 >
 	<button
 		type="button"
@@ -47,3 +48,10 @@ const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
 		</button>
 	))}
 </div>
+
+<script>
+	document.addEventListener('astro:page-load', () => {
+		const tag = new URLSearchParams(window.location.search).get('tag');
+		window.dispatchEvent(new CustomEvent('tag-filter', { detail: { tag } }));
+	});
+</script>
