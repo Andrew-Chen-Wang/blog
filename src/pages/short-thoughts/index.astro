@@ -1,0 +1,53 @@
+---
+import Layout from "@layouts/Layout.astro";
+import BlogHeader from "@components/blog/BlogHeader.astro";
+import { DEFAULT_LOCALE } from "@src/consts";
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import { getLocale, getLocaleUrlPrefix } from "astro-i18n-aut";
+import Container from "@src/components/Container.astro";
+import HeroImage from "@src/components/blog/HeroImage.astro";
+
+const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
+const localeUrlPrefix = getLocaleUrlPrefix(Astro.url);
+
+const thoughts = (await getCollection("shortthoughts", (entry) => entry.id.startsWith(`${locale}/`)))
+	.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+	.map<CollectionEntry<"shortthoughts"> & { href: string }>((thought) => {
+		return {
+			href: localeUrlPrefix + "/short-thoughts" + thought.id.replace(locale, "") + "/",
+			...thought,
+		};
+	});
+---
+
+<Layout title="Short Thoughts">
+	<Container class="pt-16">
+		<ul class="m-0 grid list-none grid-cols-2 gap-6 p-0">
+			{
+				thoughts.map((thought: any, index: number) => (
+					<li class={`${index === 0 ? "col-span-2 mb-4 w-full text-center" : ""}`}>
+						<a href={thought.href} class="block transition-colors duration-200">
+							{thought.data.heroImage && (
+								<HeroImage
+									class={`${index === 0 ? "w-full" : ""} mb-2 rounded-lg hover:shadow-md`}
+									src={thought.data.heroImage}
+									alt={thought.data.title}
+									width={720}
+									height={360}
+								/>
+							)}
+							<BlogHeader
+								pubDate={thought.data.pubDate}
+								name={`title-${thought.data.title}`}
+								isSubheading={true}
+								class={`${index === 0 ? "text-xl md:text-2xl lg:text-3xl" : ""} m-0`}>
+								{thought.data.title}
+							</BlogHeader>
+						</a>
+					</li>
+				))
+			}
+		</ul>
+	</Container>
+</Layout>

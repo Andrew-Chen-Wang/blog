@@ -16,4 +16,19 @@ const blog = defineCollection({
 		}),
 });
 
-export const collections = { blog };
+const shortthoughts = defineCollection({
+	loader: glob({
+		pattern: ["**/*.md"],
+		base: "./src/content/shortthoughts"
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: image().optional(),
+		}),
+});
+
+export const collections = { blog, shortthoughts };

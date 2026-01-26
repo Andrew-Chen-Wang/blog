@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from "astro:content";
+import ThoughtItem from "@layouts/ThoughtItem.astro";
+import { getLocale } from "astro-i18n-aut";
+import { DEFAULT_LOCALE } from "../../consts";
+
+export async function getStaticPaths() {
+	const thoughts = await getCollection("shortthoughts", (entry) => entry.id.startsWith(DEFAULT_LOCALE + "/"));
+	return thoughts.map((thought) => ({
+		params: { slug: thought.id.replace(`${DEFAULT_LOCALE}/`, "") },
+	}));
+}
+
+type Props = CollectionEntry<"shortthoughts">;
+
+const { slug } = Astro.params;
+const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
+
+const thought = await getEntry({
+	collection: "shortthoughts",
+	id: locale + "/" + slug,
+});
+if (!thought) {
+	return new Response(null, {
+		status: 404,
+		statusText: "Not found",
+	});
+}
+const { Content } = await render(thought);
+---
+
+<ThoughtItem {...thought.data}>
+	<Content />
+</ThoughtItem>
