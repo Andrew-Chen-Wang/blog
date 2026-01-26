@@ -2,7 +2,6 @@
 title: Tackling Monopolies
 description: Monopolies resist change, maintaining the status quo of today's level of inadequacy
 pubDate: 2024-08-15 02:24
-heroImage: "@assets/images/blog/DALL·E 2024-08-14 23.09.23 - An abstract representation of software solving efficiency problems. Show a modern software interface with a mix of gears and brain-like structures int.webp"
 ---
 
 Draft of ideas which I'll form into an outline and cut stuff for a more coherent thought.

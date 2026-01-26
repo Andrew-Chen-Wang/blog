@@ -2,7 +2,7 @@
 title: AGI Is Pointless
 description: Explaining what we should be focusing on and worried about, if at all
 pubDate: 2024-10-26 04:09
-heroImage: "@assets/images/blog/DALL·E 2024-08-14 23.09.23 - An abstract representation of software solving efficiency problems. Show a modern software interface with a mix of gears and brain-like structures int.webp"
+tags: ["AI", "Technology"]
 ---
 
 The fear of Artificial General Intelligence (AGI) stems from the fear of replacement.

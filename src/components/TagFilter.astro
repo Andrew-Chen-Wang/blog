@@ -1,0 +1,49 @@
+---
+interface Props {
+	tagCounts: Record<string, number>;
+	totalCount: number;
+	class?: string;
+}
+
+const { tagCounts, totalCount, class: className = "" } = Astro.props;
+const sortedTags = Object.keys(tagCounts).sort((a, b) => a.localeCompare(b));
+---
+
+<div
+	class:list={["flex flex-wrap gap-2", className]}
+	x-data={`{
+		selectedTag: new URLSearchParams(window.location.search).get('tag'),
+		init() {
+			if (this.selectedTag) {
+				this.$dispatch('tag-filter', { tag: this.selectedTag });
+			}
+		}
+	}`}
+>
+	<button
+		type="button"
+		class="inline-block rounded-full px-3 py-1 text-sm transition-colors duration-200 cursor-pointer"
+		:class="selectedTag === null ? 'bg-primary-500 text-white' : 'bg-stone-200 dark:bg-stone-700 hover:bg-primary-100 dark:hover:bg-primary-800'"
+		@click="selectedTag = null; $dispatch('tag-filter', { tag: null }); history.replaceState({}, '', window.location.pathname)"
+	>
+		All <span class="opacity-70">({totalCount})</span>
+	</button>
+	{sortedTags.map((tag) => (
+		<button
+			type="button"
+			class="inline-block rounded-full px-3 py-1 text-sm transition-colors duration-200 cursor-pointer"
+			:class={`selectedTag === '${tag}' ? 'bg-primary-500 text-white' : 'bg-stone-200 dark:bg-stone-700 hover:bg-primary-100 dark:hover:bg-primary-800'`}
+			@click={`
+				selectedTag = selectedTag === '${tag}' ? null : '${tag}';
+				$dispatch('tag-filter', { tag: selectedTag });
+				if (selectedTag) {
+					history.replaceState({}, '', '?tag=' + encodeURIComponent(selectedTag));
+				} else {
+					history.replaceState({}, '', window.location.pathname);
+				}
+			`}
+		>
+			{tag} <span class="opacity-70">({tagCounts[tag]})</span>
+		</button>
+	))}
+</div>

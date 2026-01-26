@@ -12,7 +12,8 @@ const blog = defineCollection({
 			description: z.string(),
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
-			heroImage: image(),
+			heroImage: image().optional(),
+			tags: z.array(z.string()).optional(),
 		}),
 });
 
@@ -28,6 +29,7 @@ const shortthoughts = defineCollection({
 			pubDate: z.coerce.date(),
 			updatedDate: z.coerce.date().optional(),
 			heroImage: image().optional(),
+			tags: z.array(z.string()).optional(),
 		}),
 });
 

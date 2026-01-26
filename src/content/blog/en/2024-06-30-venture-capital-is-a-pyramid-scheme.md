@@ -2,7 +2,7 @@
 title: Venture Capital is a Pyramid Scheme
 description: The VC Hypothesis is a Lie
 pubDate: 2024-06-30 14:39
-heroImage: "@assets/images/blog/vc-pyramid-scheme.png"
+tags: ["Startups", "Finance"]
 ---
 Software startups are unique in that they have high profit margins (except for LLMs since those have COGS) and can
 scale quickly. Those margins have never been seen before and make them very attractive, creating a new financier called

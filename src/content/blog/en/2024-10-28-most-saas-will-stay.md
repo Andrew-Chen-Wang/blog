@@ -2,7 +2,6 @@
 title: Most SaaS Will Stay
 description: The notion good AI will replace SaaS by having AI Agents ignores the tenets of scaled business
 pubDate: 2024-10-28 03:53
-heroImage: "@assets/images/blog/DALL·E 2024-08-14 23.09.23 - An abstract representation of software solving efficiency problems. Show a modern software interface with a mix of gears and brain-like structures int.webp"
 ---
 
 There is a notion in the tech bubble that, assuming AI agents are super knowledgeable,

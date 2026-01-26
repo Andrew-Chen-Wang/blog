@@ -2,7 +2,7 @@
 title: Intro to Andrew's Blog
 description: What I want this blog to be
 pubDate: 2024-06-29 06:54
-heroImage: "@assets/images/blog/city-energy.png"
+tags: ["Personal"]
 ---
 I'm more of a solutionist than a critic. Unhinged ideas come naturally.
 

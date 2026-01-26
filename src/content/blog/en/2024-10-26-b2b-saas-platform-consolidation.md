@@ -2,7 +2,6 @@
 title: B2B SaaS Platform Consolidation -- Explained
 description: My Perspective on the Platform Approach
 pubDate: 2024-10-26 05:08
-heroImage: "@assets/images/blog/DALL·E 2024-08-14 23.09.23 - An abstract representation of software solving efficiency problems. Show a modern software interface with a mix of gears and brain-like structures int.webp"
 ---
 
 Draft: 2024-10-26 05:28a EST

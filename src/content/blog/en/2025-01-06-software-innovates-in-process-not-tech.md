@@ -2,7 +2,7 @@
 title: Software Innovates in Process, Not Tech
 description: The startup industry has seen massive profits, but not much innovation.
 pubDate: 2025-01-06 20:39
-heroImage: "@assets/images/blog/DALL·E 2024-08-14 23.09.23 - An abstract representation of software solving efficiency problems. Show a modern software interface with a mix of gears and brain-like structures int.webp"
+tags: ["Startups", "Technology"]
 ---
 Draft
 

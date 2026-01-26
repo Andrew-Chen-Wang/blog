@@ -4,10 +4,11 @@ import HeroImage from "@components/blog/HeroImage.astro";
 import Layout from "@layouts/Layout.astro";
 import Title from "@src/components/blog/BlogHeader.astro";
 import Comments from "@src/components/blog/Comments.astro";
+import Tag from "@src/components/Tag.astro";
 
 type Props = CollectionEntry<"blog">["data"];
 const fileName = Astro.request.url.split("/").filter(Boolean).slice(-1)[0];
-const { title, description, pubDate, updatedDate, heroImage } = Astro.props as Props;
+const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props as Props;
 ---
 
 <Layout title={title} description={description}>
@@ -18,6 +19,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props as P
 		<div class="prose dark:prose-invert mx-auto max-w-screen-md space-y-4 px-4">
 			<div class="space-y-4 text-center">
 				<Title pubDate={pubDate} updatedDate={updatedDate} name={`title-${title}`} class="m-0 mb-2 dark:text-stone-50">{title}</Title>
+				{tags && tags.length > 0 && (
+					<div class="flex flex-wrap gap-2 justify-center">
+						{tags.map((tag) => (
+							<Tag tag={tag} href={`/blog/?tag=${encodeURIComponent(tag)}`} />
+						))}
+					</div>
+				)}
 				<a target="_blank" href=`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/blog/en/${fileName}.md`>
 					Edit History
 				</a>
