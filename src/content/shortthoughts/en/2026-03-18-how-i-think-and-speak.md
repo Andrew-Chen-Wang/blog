@@ -97,9 +97,9 @@ For my future funny bone's sake, here's something random I jotted in my journal:
 > kiss but by noses. Finally, to transmit, you shoot your protein into the other person by sneezing. Because snot
 > contains DNA, right?
 
-If I have kids, here's where your creativity, if you have some, partially come from. My craziness genetically come from
-my dad like the enormous usage of sticky notes which everyone but mom in the family does without each other noticing,
-though the following might be wild.
+If I have kids, and you're reading this, here's where your creativity, if you have some, partially come from. My
+craziness genetically come from
+my dad like the enormous usage of sticky notes which everyone but mom in the family does without each other noticing.
 
 ## Concluding Thoughts
 
