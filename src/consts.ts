@@ -30,8 +30,20 @@ export const PAGES: Page[] = [
 		href: "/short-thoughts",
 	},
 	{
+		title: "Recipes",
+		href: "/recipes",
+	},
+	{
 		title: "About",
 		href: "/about",
+	},
+];
+
+// One-off pages that don't belong to a category. Listed under "Sporatic" on the home page.
+export const SPORATIC_PAGES: Page[] = [
+	{
+		title: "Workouts",
+		href: "/workouts",
 	},
 ];
 

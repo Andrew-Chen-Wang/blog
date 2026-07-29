@@ -33,4 +33,20 @@ const shortthoughts = defineCollection({
 		}),
 });
 
-export const collections = { blog, shortthoughts };
+const recipes = defineCollection({
+	loader: glob({
+		pattern: ["**/*.md"],
+		base: "./src/content/recipes"
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: image().optional(),
+			tags: z.array(z.string()).optional(),
+		}),
+});
+
+export const collections = { blog, shortthoughts, recipes };

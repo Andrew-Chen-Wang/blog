@@ -1,4 +1,8 @@
 {
 	"home_description": "I'm more of a solutionist than a critic. Unhinged ideas come naturally.  I'll dump my personal thoughts here. I think about fundamental aspects of people and society, specifically politics and societal systems with touches of solutions sprinkled throughout. I also like thinking about highly glorified status symbols and why people should be looking in other directions. I also post unhinged thoughts in my daily life.",
-	"about_description": "Andrew Chen Wang's Personal Political, Unhinged, Human Dynamic Blog. I'm unfiltered with a background in the tech industry. I like helping people, sometimes to my detriment, but I find it fun."
+	"about_description": "Andrew Chen Wang's Personal Political, Unhinged, Human Dynamic Blog. I'm unfiltered with a background in the tech industry. I like helping people, sometimes to my detriment, but I find it fun.",
+	"blog_card_description": "Longer essays on politics, societal systems, and the fundamentals of how people work.",
+	"short_thoughts_card_description": "Quick, unfiltered thoughts that don't need a whole essay.",
+	"recipes_card_description": "Food I cook and keep coming back to.",
+	"workouts_description": "What I'm doing to stay in shape, and how it changes over time."
 }

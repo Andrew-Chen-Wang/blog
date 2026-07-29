@@ -1,0 +1,34 @@
+---
+import { type CollectionEntry, getCollection, getEntry, render } from "astro:content";
+import RecipeItem from "@layouts/RecipeItem.astro";
+import { getLocale } from "astro-i18n-aut";
+import { DEFAULT_LOCALE } from "../../consts";
+
+export async function getStaticPaths() {
+	const recipes = await getCollection("recipes", (entry) => entry.id.startsWith(DEFAULT_LOCALE + "/"));
+	return recipes.map((recipe) => ({
+		params: { slug: recipe.id.replace(`${DEFAULT_LOCALE}/`, "") },
+	}));
+}
+
+type Props = CollectionEntry<"recipes">;
+
+const { slug } = Astro.params;
+const locale = getLocale(Astro.url) ?? DEFAULT_LOCALE;
+
+const recipe = await getEntry({
+	collection: "recipes",
+	id: locale + "/" + slug,
+});
+if (!recipe) {
+	return new Response(null, {
+		status: 404,
+		statusText: "Not found",
+	});
+}
+const { Content } = await render(recipe);
+---
+
+<RecipeItem {...recipe.data}>
+	<Content />
+</RecipeItem>

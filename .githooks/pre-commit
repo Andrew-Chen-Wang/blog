@@ -1,0 +1,4 @@
+#!/bin/sh
+# Reject staged images that still carry EXIF/GPS/XMP/IPTC metadata.
+# Enabled per clone with: git config core.hooksPath .githooks
+exec node scripts/check-image-metadata.mjs --staged
