@@ -1,7 +1,9 @@
 ---
+import { Image } from "astro:assets";
 import translations from "@utils/t.ts";
 import Layout from "@layouts/Layout.astro";
 import Container from "@src/components/Container.astro";
+import armDefinitionScale from "@src/assets/images/blog/arm-definition-scale.png";
 
 const t = translations(Astro.url);
 ---
@@ -439,10 +441,17 @@ const t = translations(Astro.url);
 				my back a lot.
 			</p>
 
+			<Image
+				src={armDefinitionScale}
+				alt="Five arms side by side, numbered 1 through 5 from skinniest to most muscular, with 3 circled"
+			/>
+
 			<p>
-				Lately, I've been seeing a trend on what women think is an ideal
+				Lately, I've been seeing a trend on Instagram on what women think is an ideal
 				arm shape/muscle amount/tone definition on men (e.g. [What is the perfect arm definition](https://www.instagram.com/reel/DY6i7Ezte1x/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==)).
-				I think I would go for 3 (out of 5); I'm currently probably at 2 (maybe even less) but with some
+				I think I would go for 3 (out of 5). Rosa agrees about not being too big otherwise it's scary. I'm
+				currently probably at 2 (maybe even less; ChatGPT says 2.25 because of triceps size, but my arms are
+				still not large enough to be able to have definition) but with some
 				fat on me oof. The funny thing is, my girlfriend doesn't care; she watched c-dramas and was looking
 				for a shy, Chinese-Canadian software engineer because c-drama leads are notoriously very skinny;
 				instead, she got a chaotic, Chinese-American startup founder. I started off skinny, and she liked
