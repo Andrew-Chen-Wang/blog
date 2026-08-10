@@ -1,7 +1,7 @@
 ---
 title: "China exporting manufacturing equipment"
 description: "Quick thoughts on China's rise in expertise and wages"
-pubDate: 2026-08-01 00:07
+pubDate: 2026-08-07 00:07
 tags: ["Politics", "Business"]
 ---
 This is amazing for China, and it is what India should have done for a long time: https://www.wsj.com/economy/trade/chinas-new-export-engine-supplying-the-factories-of-the-world-b8f1c176?st=vFVUXK
