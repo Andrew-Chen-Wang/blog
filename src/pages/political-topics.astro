@@ -1,0 +1,320 @@
+---
+import translations from "@utils/t.ts";
+import Layout from "@layouts/Layout.astro";
+import Container from "@src/components/Container.astro";
+
+const t = translations(Astro.url);
+---
+
+<Layout title="Political Topics I Care About" description="A running list of the political topics I actually spend time thinking about.">
+	<Container class="pt-16">
+		<div class="text-center">
+			<h1 class="mb-4 text-3xl font-semibold">Political Topics I Care About</h1>
+		</div>
+		<div class="prose dark:prose-invert max-w-none">
+			<div class="text-center">
+				<p>
+					<a target="_blank" href="https://github.com/Andrew-Chen-Wang/blog/commits/main/src/pages/political-topics.astro">
+						Edit History
+					</a>
+				</p>
+			</div>
+			<p>
+				<i>Why is post-encouragement discouragement futile?</i>
+			</p>
+
+			<p set:html={t.political_topics_description} />
+
+			<p>
+				This is a living list. It's here so you know where I'm actually
+				spending my thinking, and so I can point at it instead of
+				re-explaining myself. For how I approach politics in
+				general rather than any single topic, read
+				<a href="/blog/2026-05-02-seesaw-politics/">My Practical Politics Is Everything But Neutral</a>.
+			</p>
+
+			<p>
+				The lists are subdivided by personal beliefs, topics I care about, and topics
+				I'm still learning. You can also read more of me being wrong, asking questions,
+				and discussing on Reddit at u/pywang and
+				<a href="https://toyourcredit.forum" target="_blank">ToYourCredit</a>.
+			</p>
+
+			<hr>
+
+			<h2>
+				Personal Beliefs
+			</h2>
+			<ul>
+				<li>
+					Liberal democracies are the best for individual liberty but fragile and based on the idealism
+					of its politicians.
+				</li>
+				<li>
+					Energy: becoming oil independent through significant reduction in usage such as consumer electric
+					vehicles. Increasing electricity for a more productive society through nuclear energy and other
+					renewables without damaging the environment through landfills and overusage of space.
+				</li>
+				<li>
+					Anti-war from an economic and moral perspective unless the cost of not waging it is extreme
+					unhappiness, illiberalism, loss of liberty, and tons more deaths, i.e. Iran. But for the most
+					part, anti-war.
+				</li>
+				<li>
+					Politicians should be smarter: I think the modern politician is far more representative in the U.S.
+					compared to most countries because the representatives are actual residents of the districts or
+					states they represent. However, the original intent for politicians in America was for them to be
+					educated. There is an intellectual elitism in the American left that believes college educated
+					individuals would naturally be more leftist and that their policies are better, but simply having
+					that degree does not make them more knowledgeable on political issues and solutions. Because of
+					who is now entering politics, which over the last 80 years has been far more charismatic than
+					earlier American politicians, I think the overall intellectualism, particularly in political
+					theory, but also avoidance of populism has decreased. My favorite modern politician is Barack
+					Obama. I've found interviews of him talking about the rise of China and him being anti-woke and
+					purity tests dating back to 2019. He's made mistakes that I've criticized on online forums (tl;dr
+					some of them: foreign (in)action in the Middle East, particularly the Arab Spring, starting
+					to write flurries of executive orders that Trump continued in his first term and went wild in his
+					second). But he was the best politician because he was practical while remaining ideological.
+					Politics is slow moving, and people never appreciate that. It's why I say being a president is
+					just a job. It's an honor to be one, but it's just a job. Or at least it's supposed to be with
+					minimal corruption:/ Additionally, Obama staffed people who understood the nuance, but Mayor
+					Mamdani is completing tasks that make him charismatic and to the Democratic base successful
+					when his departments are also executing policies that pushes NYC's problems down the road
+					like rent control. I still think Mamdani is a good, charismatic politician, but he chose
+					people who are too ideological. President Trump has the same problem, though he doesn't mind it
+					as much (probably because he doesn't care about America's long term future and is devoid of
+					political theory and Democratic ideals, though I do believe in Susie Wiles when she says Trump
+					is just trolling the left that he'll stay for a third term). President Trump's problem is that
+					he has coalesced multiple factions, and people in those factions are now pushing their own agendas.
+					The Christian faction was shunned out by President Reagan (and overseas, by Lee Kwan Yew), but
+					it was necessary for Trump to install Christians who use their newfound power to push their beliefs
+					against the public or take advantage of their base. Trump doesn't care about Christianity, and
+					Christians know that. Mamdani is in the same position with executives installing rent control,
+					which was a campaign promise, but again is doing harm against NYC. Obama hired the right talent
+					that were laser focused on what needed to get done.
+				</li>
+				<li>
+					Privacy and data ownership: I've written a few blogs on it and made a side project called
+					SproutOS that deals with it. From a political perspective, that means ensuring the protection
+					of individuals from an overpowered government that is finally (and now) put in the wrong hands
+					that abuse the power outside of democratic ideals.
+				</li>
+				<li>
+					Truth seek: this is a right-wing term, but it shouldn't be. It should be used by everyone to
+					discover nuance. Of course, one can never believe everyone is willing to do the research and
+					discover nuance. Understanding trade offs should be vital to those that are executing.
+				</li>
+				<li>
+					Anti-woke and big tent politics: stop putting purity tests on everyone. Be tolerable of
+					different peoples' beliefs and ethics. Society changes slowly. Socially shunning people
+					turned into the biggest populist backlash because there was shunning of everything. I walked
+					into college and got shunned for saying particular words or ideas. Thankfully, having a communist
+					best friend at the time was great because he was a math major, so he had all the time in the world
+					to talk. The purity tests are what made Democrats unlikable which costed them several election
+					cycles and losing factions i.e. big tent politics. When Ezra Klein got cancelled for wanting big
+					tent politics, it was crazy. Now, AOC is walking back Woke 1.0... so I guess times are shifting.
+					I like how one person put it: left wing McCarthyism.
+				</li>
+				<li>
+					The power of Congress and Electoral College: the legislative branch should restore its power against
+					the executive in fear of Unitary Executive Theory. Both parties want it, and the media craves it,
+					which means the common person craves it, too, because we love stories, heroes (especially if they're
+					charismatic), and their journeys. American political theory is very interesting, and I love it.
+					I think it's the perfect federal system for America given its history and even to this day nothing
+					has really changed in nature. Leftists who hate the Electoral College and want everyone required
+					to vote say that because it would mean Democrats would always win, but the point of representation
+					is that people are representatives. Even during the founding of the country, people knew certain
+					states would have too much leverage and too large of a population that would crush other states'
+					representation. I started re-reading the Federalist Papers, and to think a bicameral legislature
+					and Electoral College was not intended is dumb. The degree of influence may have changed (given
+					all states ended up just voting via popular vote), and the Senate's filibuster gave too much power
+					to the Senate, we have from an underlying theory an amazing political system compared to, say, a
+					parliamentary system.
+				</li>
+				<li>
+					<a href="/shortthoughts/2026-05-07-why-i-support-a-certain-form-of-dei/">DEI to a certain extent</a>
+				</li>
+			</ul>
+
+			<hr>
+
+			<h2>
+				Topics I care about
+			</h2>
+			<ul>
+				<li>
+					Reshoring jobs and protectionism in the fast paced global economy. I'm particularly inspired
+					by Ohio (though they had a perfect opportunity to reshore given their monopsonistic towns),
+					but, as a Michigander, I'm woefully disappointed by the state government in their inability
+					to attract Americans back to Michigan. As I mentioned before, politicians need to be smarter.
+					I care deeply about my home state and wish it could be revitalized, but country comes first.
+					As the population in Michigan continues to age on average, the possibility of revitalization
+					potential shrinks unless healthcare spurs economic growth which is possible; in which case,
+					Michigan would need to invest in making it attractive cities because that's what the youth
+					cares about, which then brings jobs.
+				</li>
+				<li>
+					Universal healthcare: I do think universal healthcare is important, but it doesn't mean
+					we have to adopt a single-payer system to do it. I'm a big advocate for incremental improvements.
+					Slowly but surely, because that's just how politics was designed in America.
+				</li>
+				<li>
+					Environmentalism, particularly protection of nature, the nuance of environmentalism and
+					human productivity (and solutions to make both work out), the Great Lakes, forests, and national
+					parks. I'm not a big hiker, but I appreciate being in nature, being surrounded by animals, letting
+					animals bask in private, and having the privacy through being in forests / being connected to
+					nature. Funny story: my dad enjoys the suburbs, and I have more and more friends love suburban
+					living. My dad grew up on a tiny farm in China, and moved to the city in his adulthood. He hated
+					the city, not just because of the sectionalism in China (that persists even today regarding white
+					skin vs. tan skin which is the opposite of America), but because he is kind of a walking faux pas
+					city-wise. There is a dichotomy between urbanists who are usually political and just casual people
+					who want the space, tranquility, low cost of living, low stress, and low pollution of a suburb.
+				</li>
+				<li>
+					The power of the individual: my favorite entertainment are Dune, both cinematic and book series,
+					and Andor. I do think people need to struggle, but not suffer. I've written about this in a blog.
+					However, what I haven't written about but is widely discussed is Dune's thinking on the power of
+					an individual. Not just in the struggle, but politically as well with the Messiah figure, using
+					the Voice in real life (metaphorically), etc. But religion will always be a thing. It won't ever
+					die, and I think tolerance of differences should be learned.
+				</li>
+				<li>
+					Appreciation of differences and selfishness: I'm a fan of YIMBYism but also rent control for
+					certain zones of a city and for certain individuals to different extents, mostly elderly residents.
+					I think there should be more understanding of nuance in issues.
+					I think America is the best definition of tolerance of differences, though I'm worried about the
+					rise of left wing violence as right wing violence has on long-term stayed still.
+				</li>
+				<li>
+					Urbanism: I can understand the appeal and various factors of the appeal of suburbia. I personally
+					like dense cities because (the analogy of gluten complexity incoming) it ensures ideas are flowed
+					very quickly, gathers talent in a dense place, and highly efficient spaces. That said, I'm not
+					anti-car, though cars should be EVs now (some things can't like a fighter jet, rocket, planes,
+					huge industrial trucks, etc.). Cars have their place in the world.
+				</li>
+				<li>
+					Getting political operatives with non-truth-seeking motives out: money in politics and rich
+					people entering politics has been a thing forever. Secretary of State and democratic gubernatorial
+					nominee in Michigan Jocelyn Benson is one of them, setting up her life to be the perfect spitting
+					image of a politician. I met someone whose brother was the Harvard commencement speaker (and donors
+					banned him from giving the HLS comment address too) who moved to Detroit to also set up a perfect
+					story like being a public defender in preparation for entering politics. Both are from wealthy
+					families, neither are from Michigan. It's the Obama playbook, but the playbook is decades old now.
+					To be honest, I don't have that big of a problem with it if they live there long enough. Though
+					I feel a patriotic sense to my home state, if they get the right policies in, then sure. However,
+					I feel uncomfortable whenever politicians who advocate for certain policies loudly are not in the
+					gray area. And that's what I see with the DSA and Republican Party. Everyone is a conservative
+					to some degree; xenophobia is an example of this, and it's found in NYC (i.e. NYC transplants) and
+					SF (i.e. tech companies). So I get it for conservatives because people don't like change because
+					the future is unknown. However, I have a problem with folks who push an ideology without practical,
+					historical within reasonable context, or academic backing, and this lack of nuance is the problem
+					with the DSA when they push their narrative. Worse, DSA members are forcing people to believe
+					that to accomplish their goals, they need to make all of America run under the socialist system.
+					This to me is sinister. I have my thoughts on capitalism, reforms, and socialism from an innovation
+					standpoint, and I've written about it before if you'd like to read.
+				</li>
+				<li>
+					Anti-drug, pro health: being health is tough. It requires a good mindset, can be expensive food
+					wise and tastes horrible depending on your goal, and requires the time to maintain that health.
+					Drugs have caused tons of problems, even safe drugs that people want to legalize such as marijuana.
+				</li>
+			</ul>
+
+			<hr>
+
+			<h2>
+				Topics I'm still learning about and are usually controversial
+			</h2>
+
+			<p>
+				A quick list of things I'm still learning but haven't written a blog about my thoughts yet:
+			</p>
+
+			<ul>
+				<li>
+					Policy on immigration and fertility rate, and the unknown potential and degree of economic
+					consequences society will burden for falling rates of either (skilled or unskilled regarding
+					immigrants and education levels through culture and funding for children in America)
+				</li>
+				<li>
+					Marxism: I'm politically intrigued in it. All of Marx's economic theories and political predictions
+					failed, but the DSA is starting to thrive, so I've started reading into what the modern democratic
+					socialist thinks should happen. I'm willing in the future to pay for a small socialist America city
+					just to see if things would work out if the rest of the world is capitalist. However, a lot of
+					the microeconomics don't work. The DSA
+				</li>
+				<li>
+					Military spending, economics of war, and the degree of necessity to ensure global trade is
+					peaceful.
+				</li>
+				<li>
+					Land, Georgism, landlording (a la pied a terre tax in NYC), etc.
+				</li>
+			</ul>
+
+			<h3>Market power and monopolization</h3>
+			<p>
+				Concentration is the thread running through most of what I
+				write. Private markets are the right default, but past a
+				certain size, capital stops competing and starts distorting:
+				private equity rolling up mom-and-pop businesses, undercutting
+				until the small competitor is gone, and platforms that resist
+				change because the status quo pays them. See
+				<a href="/blog/2026-05-04-what-business-is-too-powerful/">Power Imbalance and Leverage from Money's Perspective</a>,
+				<a href="/blog/2024-08-15-solving-efficiency-against-monopolies/">Tackling Monopolies</a>, and
+				<a href="/blog/2026-08-02-most-people-never-learn-enough-to-deserve-an-opinion/">Most people never learn enough to deserve opinion</a>.
+			</p>
+
+			<h3>Industrial policy and manufacturing</h3>
+			<p>
+				Whether a nation should make things, and which things. My
+				position is high-value manufacturing, not assembly lines:
+				chips and solar showed it can work when the talent base and
+				product value line up. See
+				<a href="/blog/2026-05-25-should-manufacturing-be-restored-in-america/">Should Manufacturing be Restored in America</a>.
+			</p>
+
+			<h3>Great power politics and defense</h3>
+			<p>
+				Balance as the stabilizing force in international relations,
+				and what the actual constraints on military power look like
+				once you follow the politics rather than the hardware. See
+				<a href="/blog/2026-02-26-newtowns-third-law-for-international-politics/">Newton's Third Law for International Politics</a> and
+				<a href="/blog/2026-04-23-how-americas-munition-stockpile-was-depleted/">How America's Munitions Stockpile was Depleted</a>.
+			</p>
+
+			<h3>Who pays for innovation</h3>
+			<p>
+				Public versus private funding, and what each is actually good
+				at. Military budgets get credit for innovation mostly because
+				they're concentrated; science funding is spread thin enough
+				that breakthroughs get starved. See
+				<a href="/blog/2026-07-01-military-vs-science-funding/">Military vs. Science Funding</a>.
+			</p>
+
+			<h3>Europe's trajectory</h3>
+			<p>
+				Whether Europe's slower growth is regulation, cultural choice,
+				or both, and what it costs a bloc to opt out of competing. See
+				<a href="/blog/2026-06-27-is-europe-poor/">Is Europe Poor or is Relaxation a Choice?</a>.
+			</p>
+
+			<h3>Opportunity, pipelines, and mobility</h3>
+			<p>
+				Most of what looks like merit is access to a funnel someone
+				else told you about. Who gets into those funnels, and who
+				never hears they exist, is a political question. See
+				<a href="/blog/2026-07-01-pipelines/">Why Pipelines Matter in Life</a> and
+				<a href="/blog/2026-07-01-rise-of-women/">Rise of Women</a>.
+			</p>
+
+			<h3>AI, labor, and what the panic is actually about</h3>
+			<p>
+				Less about AGI risk and more about who captures the gains, what
+				gets built with the capital, and which fears are real versus
+				marketed. See
+				<a href="/blog/2024-10-26-agi-is-pointless/">AGI Is Pointless</a>.
+			</p>
+		</div>
+	</Container>
+</Layout>
