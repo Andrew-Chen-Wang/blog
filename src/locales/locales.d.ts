@@ -5,4 +5,5 @@ declare interface Locales {
 	short_thoughts_card_description: string;
 	recipes_card_description: string;
 	workouts_description: string;
+	political_topics_description: string;
 }

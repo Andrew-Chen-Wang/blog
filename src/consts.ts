@@ -45,6 +45,10 @@ export const SPORATIC_PAGES: Page[] = [
 		title: "Workouts",
 		href: "/workouts",
 	},
+	{
+		title: "Political Topics I Care About",
+		href: "/political-topics",
+	},
 ];
 
 // i18n
