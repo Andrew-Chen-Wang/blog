@@ -13,6 +13,7 @@ const sections = [
 	{ title: "Blog", href: "/blog", description: t.blog_card_description },
 	{ title: "Short Thoughts", href: "/short-thoughts", description: t.short_thoughts_card_description },
 	{ title: "Recipes", href: "/recipes", description: t.recipes_card_description },
+	{ title: "Image Board", href: "/image-board", description: t.image_board_card_description },
 ];
 ---
 
@@ -24,7 +25,7 @@ const sections = [
 
 		<span set:html={t.home_description} />
 
-		<nav aria-label="Sections" class="mt-12 grid gap-4 sm:grid-cols-3">
+		<nav aria-label="Sections" class="mt-12 grid gap-4 sm:grid-cols-2">
 			{
 				sections.map((section) => (
 					<a

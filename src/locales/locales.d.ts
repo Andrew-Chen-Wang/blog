@@ -4,6 +4,7 @@ declare interface Locales {
 	blog_card_description: string;
 	short_thoughts_card_description: string;
 	recipes_card_description: string;
+	image_board_card_description: string;
 	workouts_description: string;
 	political_topics_description: string;
 }

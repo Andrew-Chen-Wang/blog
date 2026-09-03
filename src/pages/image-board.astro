@@ -1,0 +1,163 @@
+---
+import { getImage } from "astro:assets";
+import Layout from "@layouts/Layout.astro";
+import { SORTED_IMAGE_BOARD } from "@src/data/imageBoard";
+
+// Thumbnails for the masonry grid and a larger version for the carousel.
+const items = await Promise.all(
+	SORTED_IMAGE_BOARD.map(async (item) => {
+		const thumb = await getImage({ src: item.src, width: 800, format: "webp" });
+		const full = await getImage({ src: item.src, width: 2000, format: "webp" });
+		const date = new Date(`${item.date}T00:00:00Z`);
+		return {
+			label: item.label,
+			description: item.description,
+			date: item.date,
+			dateLabel: date.toLocaleDateString("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }),
+			source: item.source ?? "",
+			// A source that's a URL is rendered as a link; anything else as plain text.
+			sourceHref: item.source && /^https?:\/\//.test(item.source) ? item.source : "",
+			thumb: thumb.src,
+			full: full.src,
+			width: item.src.width,
+			height: item.src.height,
+		};
+	}),
+);
+---
+
+<Layout title="Image Board" description="A board of images I've made or taken.">
+	<div
+		class="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8"
+		x-data={`{
+			items: ${JSON.stringify(items)},
+			open: false,
+			index: 0,
+			show(i) {
+				this.index = i;
+				this.open = true;
+				document.body.style.overflow = "hidden";
+			},
+			close() {
+				this.open = false;
+				document.body.style.overflow = "";
+			},
+			next() { this.index = (this.index + 1) % this.items.length; },
+			prev() { this.index = (this.index - 1 + this.items.length) % this.items.length; },
+			get current() { return this.items[this.index]; }
+		}`}
+		@keydown.escape.window="open && close()"
+		@keydown.arrow-right.window="open && next()"
+		@keydown.arrow-left.window="open && prev()">
+		<div class="mb-8 text-center">
+			<h1 class="mb-2 text-3xl font-semibold">Image Board</h1>
+			<p class="text-sm text-stone-600 dark:text-stone-400">Newest first. Click an image for the full story.</p>
+		</div>
+
+		<!-- Masonry grid -->
+		<div class="columns-2 gap-3 sm:columns-2 md:columns-3 lg:columns-4 [column-fill:_balance]">
+			{
+				items.map((item, i) => (
+					<button
+						type="button"
+						@click={`show(${i})`}
+						class="group mb-3 block w-full break-inside-avoid overflow-hidden rounded-lg bg-stone-100 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-400 dark:bg-stone-800">
+						<div class="relative">
+							<img
+								src={item.thumb}
+								alt={item.label}
+								width={item.width}
+								height={item.height}
+								loading="lazy"
+								decoding="async"
+								class="w-full transition duration-300 group-hover:scale-[1.03] group-hover:opacity-90"
+							/>
+							<div class="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+								<p class="m-0 text-sm font-medium text-white">{item.label}</p>
+								<p class="m-0 text-xs text-white/70">{item.dateLabel}</p>
+							</div>
+						</div>
+					</button>
+				))
+			}
+		</div>
+
+		{items.length === 0 && <p class="text-center text-stone-500">Nothing here yet.</p>}
+
+		<!-- Carousel / lightbox -->
+		<div
+			x-show="open"
+			x-cloak
+			x-transition:enter="transition ease-out duration-200"
+			x-transition:enter-start="opacity-0"
+			x-transition:enter-end="opacity-100"
+			x-transition:leave="transition ease-in duration-150"
+			x-transition:leave-start="opacity-100"
+			x-transition:leave-end="opacity-0"
+			class="fixed inset-0 z-50 flex flex-col bg-black"
+			role="dialog"
+			aria-modal="true">
+			<div class="flex items-center justify-between p-4 text-white/70">
+				<span class="text-xs tabular-nums" x-text="`${index + 1} / ${items.length}`"></span>
+				<button type="button" @click="close()" aria-label="Close" class="rounded p-1 text-2xl leading-none hover:text-white">
+					&times;
+				</button>
+			</div>
+
+			<div class="relative flex min-h-0 flex-1 items-center justify-center px-4" @click.self="close()">
+				<button
+					type="button"
+					x-show="items.length > 1"
+					@click="prev()"
+					aria-label="Previous"
+					class="absolute left-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25 sm:left-6">
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+						<path
+							fill-rule="evenodd"
+							d="M12.707 4.293a1 1 0 010 1.414L8.414 10l4.293 4.293a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5-5a1 1 0 011.414 0z"
+							clip-rule="evenodd"></path>
+					</svg>
+				</button>
+
+				<img :src="current.full" :alt="current.label" class="max-h-full max-w-full object-contain" />
+
+				<button
+					type="button"
+					x-show="items.length > 1"
+					@click="next()"
+					aria-label="Next"
+					class="absolute right-2 z-10 rounded-full bg-white/10 p-3 text-white transition hover:bg-white/25 sm:right-6">
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+						<path
+							fill-rule="evenodd"
+							d="M7.293 15.707a1 1 0 010-1.414L11.586 10 7.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+							clip-rule="evenodd"></path>
+					</svg>
+				</button>
+			</div>
+
+			<div class="mx-auto w-full max-w-3xl shrink-0 px-6 pb-8 pt-4 text-center text-white">
+				<h2 class="m-0 text-lg font-semibold" x-text="current.label"></h2>
+				<p class="m-0 mt-1 text-xs uppercase tracking-widest text-white/50" x-text="current.dateLabel"></p>
+				<p class="m-0 mt-3 text-sm text-white/80" x-text="current.description"></p>
+				<p class="m-0 mt-2 text-xs text-white/50" x-show="current.source">
+					<span>Source: </span>
+					<a
+						x-show="current.sourceHref"
+						:href="current.sourceHref"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="underline underline-offset-2 hover:text-white"
+						x-text="current.source"></a>
+					<span x-show="!current.sourceHref" x-text="current.source"></span>
+				</p>
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	[x-cloak] {
+		display: none !important;
+	}
+</style>

@@ -34,6 +34,10 @@ export const PAGES: Page[] = [
 		href: "/recipes",
 	},
 	{
+		title: "Image Board",
+		href: "/image-board",
+	},
+	{
 		title: "About",
 		href: "/about",
 	},
