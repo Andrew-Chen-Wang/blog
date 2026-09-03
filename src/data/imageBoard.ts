@@ -27,7 +27,7 @@ export const IMAGE_BOARD: ImageBoardEntry[] = [
 	{
 		file: "DaTang Village Guizhou.png",
 		label: "DaTang Village, Guizhou",
-		description: "I love the tranquility and morphing of houses along the hill",
+		description: "I love the tranquility and morphing of houses along the hill. Most importantly, life seems simple here.",
 		date: "2025-09-03",
 		source: "https://www.youtube.com/watch?v=-xwCf3ATd6M"
 	},
