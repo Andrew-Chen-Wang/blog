@@ -10,24 +10,20 @@ const urlWithoutLocalePrefix = getUrlWithoutLocale(Astro.url);
 
 <script>
 	import { navigate } from "astro:transitions/client";
-	import Alpine from "alpinejs";
 
-	document.addEventListener("alpine:init", () => {
-		Alpine.data("dropdownData", () => ({
-			currentLocale: "${currentLocale}",
-			changePage(event: any) {
-				const newLocaleUrl = event.target.value;
-				navigate(newLocaleUrl);
-			},
-		}));
+	// Delegated so it keeps working after view transitions swap the navbar.
+	document.addEventListener("change", (event) => {
+		const target = event.target;
+		if (target instanceof HTMLSelectElement && target.matches("[data-locale-select]")) {
+			navigate(target.value);
+		}
 	});
 </script>
 
 <select
 	aria-label="Change language"
 	class="cursor-pointer focus-visible:outline-none dark:bg-stone-800 dark:text-stone-50"
-	x-data="dropdownData"
-	x-on:change="changePage($event)">
+	data-locale-select>
 	{
 		locales.map((locale) => (
 			<option value={`/${locale}${urlWithoutLocalePrefix}`} selected={locale === currentLocale}>
