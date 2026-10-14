@@ -1,0 +1,27 @@
+---
+import { getCollection, render } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import Container from "@src/components/Container.astro";
+import WorkoutsNav from "@src/components/WorkoutsNav.astro";
+
+const updates = (await getCollection("workoutUpdates")).sort(
+	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf() || a.id.localeCompare(b.id),
+);
+const rendered = await Promise.all(updates.map(async (update) => (await render(update)).Content));
+---
+
+<Layout title="Workout Updates" description="Updates on my workouts over time.">
+	<Container class="pt-16">
+		<div class="text-center">
+			<h1 class="mb-4 text-3xl font-semibold">Workout Updates</h1>
+		</div>
+		<WorkoutsNav />
+		<div class="prose dark:prose-invert max-w-none">
+			<p>
+				As a note, updates to numbers and workouts are tracked via git history.
+			</p>
+
+			{rendered.map((Content) => <Content />)}
+		</div>
+	</Container>
+</Layout>

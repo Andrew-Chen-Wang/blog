@@ -49,4 +49,14 @@ const recipes = defineCollection({
 		}),
 });
 
-export const collections = { blog, shortthoughts, recipes };
+const workoutUpdates = defineCollection({
+	loader: glob({
+		pattern: ["**/*.md"],
+		base: "./src/content/workouts/updates"
+	}),
+	schema: z.object({
+		pubDate: z.coerce.date(),
+	}),
+});
+
+export const collections = { blog, shortthoughts, recipes, workoutUpdates };

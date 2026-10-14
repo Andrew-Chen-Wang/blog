@@ -22,7 +22,7 @@ const { image, title = SITE_TITLE, description = SITE_DESCRIPTION } = Astro.prop
 
 // Posts mark their own content for search; sporatic pages are indexed whole.
 const path = getUrlWithoutLocale(Astro.url).replace(/\/$/, "");
-const isSporatic = SPORATIC_PAGES.some((page) => page.href === path);
+const isSporatic = SPORATIC_PAGES.some((page) => path === page.href || path.startsWith(page.href + "/"));
 ---
 
 <html lang={locale}>

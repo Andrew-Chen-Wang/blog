@@ -1,0 +1,35 @@
+---
+import { getUrlWithoutLocale } from "astro-i18n-aut";
+
+const tabs = [
+	{ title: "Regimen", description: "What I do now", href: "/workouts/" },
+	{ title: "History", description: "How I got here", href: "/workouts/history/" },
+	{ title: "Motivation", description: "Why I do it", href: "/workouts/motivation/" },
+	{ title: "Updates", description: "Progress notes", href: "/workouts/updates/" },
+];
+
+const path = getUrlWithoutLocale(Astro.url).replace(/\/?$/, "/");
+---
+
+<nav aria-label="Workout pages" class="not-prose mb-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+	{tabs.map((tab) => {
+		const active = path === tab.href;
+		return (
+			<a
+				href={tab.href}
+				aria-current={active ? "page" : undefined}
+				class:list={[
+					"block rounded-lg border px-4 py-3 no-underline transition-colors duration-200",
+					active
+						? "border-primary-500"
+						: "border-stone-200 hover:border-stone-400 dark:border-stone-700 dark:hover:border-stone-500",
+				]}
+			>
+				<span class:list={["block text-sm font-semibold", active && "text-primary-500"]}>
+					{tab.title}
+				</span>
+				<span class="mt-0.5 block text-xs opacity-60">{tab.description}</span>
+			</a>
+		);
+	})}
+</nav>
