@@ -1,0 +1,65 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import { createMarkdownProcessor } from "@astrojs/markdown-remark";
+import Layout from "@layouts/Layout.astro";
+import Container from "@src/components/Container.astro";
+import FormattedDate from "@src/components/FormattedDate.astro";
+
+export async function getStaticPaths() {
+	const topics = await getCollection("politicalTopics");
+	return topics.map((topic) => ({ params: { slug: topic.id } }));
+}
+
+const { slug } = Astro.params;
+const topic = await getEntry("politicalTopics", slug!);
+if (!topic) {
+	return new Response(null, { status: 404, statusText: "Not found" });
+}
+
+// Render exactly as written: no smart quotes or dashes, unlike the rest of the site's markdown
+const markdown = await createMarkdownProcessor({ smartypants: false });
+const toHtml = async (body = "") => (await markdown.render(body)).code;
+const content = await toHtml(topic.body);
+
+// Newest first
+const learnings = (await getCollection("politicalTopicLearnings", (entry) => entry.id.startsWith(`${slug}/`))).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || b.id.localeCompare(a.id),
+);
+const renderedLearnings = await Promise.all(
+	learnings.map(async (learning) => ({ learning, content: await toHtml(learning.body) })),
+);
+---
+
+<Layout title={topic.data.title} description={`My current thinking on ${topic.data.title.toLowerCase()}.`}>
+	<Container class="pt-16">
+		<article class="prose dark:prose-invert max-w-none" data-pagefind-body>
+			<div class="text-center" data-pagefind-ignore>
+				<p class="m-0"><a href="/political-topics/">Political Topics</a></p>
+			</div>
+			<h1 class="mt-2 text-center text-3xl font-semibold">{topic.data.title}</h1>
+			<div class="text-center" data-pagefind-ignore>
+				<a target="_blank" href={`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/political-topics/${slug}`}>
+					Edit History
+				</a>
+			</div>
+
+			<Fragment set:html={content} />
+
+			{renderedLearnings.length > 0 && (
+				<>
+					<hr />
+					<h2>Learnings</h2>
+					{renderedLearnings.map(({ learning, content }) => (
+						<section>
+							<h3>
+								<FormattedDate date={learning.data.pubDate} />
+								{learning.data.title && <> &mdash; {learning.data.title}</>}
+							</h3>
+							<Fragment set:html={content} />
+						</section>
+					))}
+				</>
+			)}
+		</article>
+	</Container>
+</Layout>

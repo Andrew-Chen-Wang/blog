@@ -24,10 +24,6 @@ export const SPORATIC_PAGES: Page[] = [
 		title: "Workouts",
 		href: "/workouts",
 	},
-	{
-		title: "Political Topics I Care About",
-		href: "/political-topics",
-	},
 ];
 
 export const PAGES: NavItem[] = [
@@ -49,6 +45,10 @@ export const PAGES: NavItem[] = [
 			{
 				title: "Recipes",
 				href: "/recipes",
+			},
+			{
+				title: "Political Topics",
+				href: "/political-topics",
 			},
 			{
 				title: "Image Board",

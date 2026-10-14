@@ -59,4 +59,29 @@ const workoutUpdates = defineCollection({
 	}),
 });
 
-export const collections = { blog, shortthoughts, recipes, workoutUpdates };
+// Each topic is a folder: index.md holds my current thinking, learnings/ holds dated notes
+const politicalTopics = defineCollection({
+	loader: glob({
+		pattern: ["*/index.md"],
+		base: "./src/content/political-topics",
+		generateId: ({ entry }) => entry.split("/")[0],
+	}),
+	schema: z.object({
+		title: z.string(),
+		group: z.enum(["beliefs", "care", "learning", "written"]),
+		order: z.number(),
+	}),
+});
+
+const politicalTopicLearnings = defineCollection({
+	loader: glob({
+		pattern: ["*/learnings/*.md"],
+		base: "./src/content/political-topics",
+	}),
+	schema: z.object({
+		pubDate: z.coerce.date(),
+		title: z.string().optional(),
+	}),
+});
+
+export const collections = { blog, shortthoughts, recipes, workoutUpdates, politicalTopics, politicalTopicLearnings };
