@@ -24,7 +24,7 @@ jobs:
         # since the astro action itself didn't work :/
       # Uses the version in package.json's packageManager field
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
       - name: Install Node
         uses: actions/setup-node@v7
         with:
