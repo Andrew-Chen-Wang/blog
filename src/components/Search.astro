@@ -88,9 +88,46 @@
 	document.addEventListener("astro:before-swap", () => getInstanceManager().removeInstance("default"));
 	document.addEventListener("astro:after-swap", patchInstance);
 
+	// Pagefind caps the tag list at a fixed 280px. Instead, let it fill the space from the
+	// menu down to the bottom of the viewport (the modal stops clipping it while it's open).
+	const FILTER_MENU_MARGIN = 16;
+	function fitFilterMenu(menu: HTMLElement) {
+		if (menu.hidden) return;
+		const dropdown = menu.closest("pagefind-filter-dropdown") as HTMLElement | null;
+		// The menu's padding and border sit around the list
+		const chrome = menu.offsetHeight - (menu.querySelector(".pf-dropdown-options") as HTMLElement).offsetHeight;
+		const available = window.innerHeight - menu.getBoundingClientRect().top - chrome - FILTER_MENU_MARGIN;
+		dropdown?.style.setProperty("--pf-dropdown-max-height", `${Math.max(available, 120)}px`);
+	}
+	const openFilterMenus = () => document.querySelectorAll<HTMLElement>(".pf-dropdown-menu:not([hidden])");
+	// Observe the whole document so this survives view transitions swapping the navbar
+	new MutationObserver((mutations) => {
+		for (const { target } of mutations) {
+			if (target instanceof HTMLElement && target.classList.contains("pf-dropdown-menu")) fitFilterMenu(target);
+		}
+	}).observe(document.documentElement, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
+	window.addEventListener("resize", () => openFilterMenus().forEach(fitFilterMenu));
+
 	// Match Pagefind's palette to the site's class-based dark mode.
 	const root = document.documentElement;
 	const syncTheme = () => root.setAttribute("data-pf-theme", root.classList.contains("dark") ? "dark" : "light");
 	syncTheme();
 	new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ["class"] });
 </script>
+
+<style is:global>
+	/* Pagefind caps both the filter menu and the options list inside it at the same
+	   max-height, so both scroll. Keep only the inner list scrolling, since that's the
+	   element Pagefind scrolls during keyboard navigation. Its height is set in the
+	   script above to fill the modal. */
+	:is(*, #\#):is(*, #\#):is(*, #\#) pagefind-filter-dropdown .pf-dropdown-menu {
+		max-height: none;
+		overflow: hidden;
+	}
+
+	/* The modal clips its contents, which cut the open tag menu off at the modal's bottom
+	   edge (only a couple of tags showed with an empty search). */
+	:is(*, #\#):is(*, #\#):is(*, #\#) dialog.pf-modal:has(.pf-dropdown-menu:not([hidden])) {
+		overflow: visible;
+	}
+</style>
