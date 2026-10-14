@@ -13,37 +13,12 @@ export const TWITTER_CREATOR: string = "@acwangpython";
 type Page = {
 	title: string;
 	href: string;
-	children?: Page[];
 };
 
-export const PAGES: Page[] = [
-	{
-		title: "Home",
-		href: "/",
-	},
-	{
-		title: "Blog",
-		href: "/blog",
-	},
-	{
-		title: "Short Thoughts",
-		href: "/short-thoughts",
-	},
-	{
-		title: "Recipes",
-		href: "/recipes",
-	},
-	{
-		title: "Image Board",
-		href: "/image-board",
-	},
-	{
-		title: "About",
-		href: "/about",
-	},
-];
+type NavItem = Page | { title: string; children: Page[] };
 
-// One-off pages that don't belong to a category. Listed under "Sporatic" on the home page.
+// One-off pages that don't belong to a category. Listed under "Sporatic" on the home page
+// and in the navbar, and indexed for search.
 export const SPORATIC_PAGES: Page[] = [
 	{
 		title: "Workouts",
@@ -52,6 +27,42 @@ export const SPORATIC_PAGES: Page[] = [
 	{
 		title: "Political Topics I Care About",
 		href: "/political-topics",
+	},
+];
+
+export const PAGES: NavItem[] = [
+	{
+		title: "Home",
+		href: "/",
+	},
+	{
+		title: "Posts",
+		children: [
+			{
+				title: "Blog",
+				href: "/blog",
+			},
+			{
+				title: "Short Thoughts",
+				href: "/short-thoughts",
+			},
+			{
+				title: "Recipes",
+				href: "/recipes",
+			},
+			{
+				title: "Image Board",
+				href: "/image-board",
+			},
+		],
+	},
+	{
+		title: "Sporatic",
+		children: SPORATIC_PAGES,
+	},
+	{
+		title: "About",
+		href: "/about",
 	},
 ];
 

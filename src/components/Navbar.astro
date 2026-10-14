@@ -7,6 +7,9 @@ import Search from "@components/Search.astro";
 import { SITE_TITLE, PAGES } from "@src/consts";
 
 const url = Astro.url;
+
+// Mirrors HeaderLink's active check so a dropdown is highlighted when one of its pages is open.
+const isActive = (href: string) => localizePath(href, url).replace(/\/$/, "") === url.pathname.replace(/\/$/, "");
 ---
 
 <header
@@ -65,15 +68,21 @@ const url = Astro.url;
 		<div class="flex flex-col flex-grow text-center gap-2 md:justify-center md:items-center md:flex md:flex-row md:mx-auto">
 			{
 				PAGES.map((item) =>
-					item.children && item.children.length ? (
-						<div @click.away="open = false" class="relative" x-data="{ open: false }">
-							<button @click="open = !open" style="link"  class="mt-[2px]">
-                {item.title}
+					"children" in item ? (
+						<div @click.outside="dropdownOpen = false" @keydown.escape="dropdownOpen = false" class="relative" x-data="{ dropdownOpen: false }">
+							<button
+								type="button"
+								@click="dropdownOpen = !dropdownOpen"
+								:aria-expanded="dropdownOpen"
+								aria-haspopup="true"
+								class:list={["inline-flex items-center gap-0.5", { "font-bold underline": item.children.some((child) => isActive(child.href)) }]}>
+								{item.title}
 								<svg
 									fill="currentColor"
 									viewBox="0 0 20 20"
-									:class="{'rotate-180': open, 'rotate-0': !open}"
-									class="inline w-4 h-4 mb-[2px] transition-transform duration-200 transform">
+									aria-hidden="true"
+									:class="{'rotate-180': dropdownOpen}"
+									class="h-4 w-4 transition-transform duration-200">
 									<path
 										fill-rule="evenodd"
 										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -82,20 +91,21 @@ const url = Astro.url;
 								</svg>
 							</button>
 							<div
-								x-show="open"
+								x-show="dropdownOpen"
+								x-cloak
 								x-transition:enter="transition ease-out duration-100"
-								x-transition:enter-start="transform opacity-0 scale-95"
-								x-transition:enter-end="transform opacity-100 scale-100"
+								x-transition:enter-start="opacity-0 scale-95"
+								x-transition:enter-end="opacity-100 scale-100"
 								x-transition:leave="transition ease-in duration-75"
-								x-transition:leave-start="transform opacity-100 scale-100"
-								x-transition:leave-end="transform opacity-0 scale-95"
-								class="absolute mt-2 bg-white right-0 w-full origin-top-right rounded-md md:w-48 outline-2 border border-gray-300">
-								<div class="px-2 py-2 rounded-md shadow dark:bg-gray-800">
-									{ item.children.map((subitem) =>
-										<HeaderLink href={subitem.href}>
-											{subitem.title}
+								x-transition:leave-start="opacity-100 scale-100"
+								x-transition:leave-end="opacity-0 scale-95"
+								class="mt-2 w-full origin-top rounded-md border border-stone-200 bg-white shadow md:absolute md:left-1/2 md:w-max md:-translate-x-1/2 dark:border-stone-700 dark:bg-stone-900">
+								<div class="flex flex-col gap-1 p-2">
+									{item.children.map((child) => (
+										<HeaderLink href={child.href} class="whitespace-nowrap rounded px-2 py-1.5 hover:bg-stone-100 md:text-left dark:hover:bg-stone-800">
+											{child.title}
 										</HeaderLink>
-									)}
+									))}
 								</div>
 							</div>
 						</div>

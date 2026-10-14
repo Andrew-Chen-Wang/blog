@@ -46,8 +46,9 @@
 	// Patch the underlying Pagefind search so `@tag` tokens become tag filters.
 	// Doing it at this level (rather than in the component instance) lets a lone
 	// `@tag` with no other text still run a filter-only search.
-	const instance = getInstanceManager().getInstance("default") as any;
-	if (!instance.__atTagsPatched__) {
+	function patchInstance() {
+		const instance = getInstanceManager().getInstance("default") as any;
+		if (instance.__atTagsPatched__) return;
 		instance.__atTagsPatched__ = true;
 		const load = instance.__load__.bind(instance);
 		instance.__load__ = async () => {
@@ -78,6 +79,13 @@
 			};
 		};
 	}
+	patchInstance();
+
+	// View transitions replace the navbar, but Pagefind components never unregister
+	// from their instance, so the old modal stays wired to the trigger. Start each
+	// page with a fresh instance for the new components to attach to.
+	document.addEventListener("astro:before-swap", () => getInstanceManager().removeInstance("default"));
+	document.addEventListener("astro:after-swap", patchInstance);
 
 	// Match Pagefind's palette to the site's class-based dark mode.
 	const root = document.documentElement;
