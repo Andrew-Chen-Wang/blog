@@ -3,6 +3,7 @@ import HeaderLink from "@components/Link.astro";
 import LanguageSelector from "@components/LanguageSelector.astro";
 import { localizePath } from "@utils/t.ts";
 import ThemeSelector from "@components/ThemeSelector.astro";
+import Search from "@components/Search.astro";
 import { SITE_TITLE, PAGES } from "@src/consts";
 
 const url = Astro.url;
@@ -106,6 +107,7 @@ const url = Astro.url;
 				)
 			}
 		</div>
+		<Search />
 		<ThemeSelector />
 		<LanguageSelector
 			showFlag={false}

@@ -12,7 +12,7 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 ---
 
 <Layout title={title} description={description}>
-	<article class="pt-16">
+	<article class="pt-16" data-pagefind-body>
 		{heroImage && (
 			<div class="w-full px-4">
 				<HeroImage class="mx-auto block rounded-lg shadow-md" width={1020} height={510} src={heroImage} alt={title} />
@@ -21,20 +21,25 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 		<div class="prose dark:prose-invert mx-auto max-w-screen-md space-y-4 px-4">
 			<div class="space-y-4 text-center">
 				<Title pubDate={pubDate} updatedDate={updatedDate} name={`title-${title}`} class="m-0 mb-2 dark:text-stone-50">{title}</Title>
+				{/* Indexed for search so results show the description, not the date and tags */}
+				<p hidden>{description}</p>
+				{tags?.map((tag) => <span data-pagefind-filter={`tag:${tag}`} hidden />)}
 				{tags && tags.length > 0 && (
-					<div class="flex flex-wrap gap-2 justify-center">
+					<div class="flex flex-wrap gap-2 justify-center" data-pagefind-ignore>
 						{tags.map((tag) => (
 							<Tag tag={tag} href={`/short-thoughts/?tag=${encodeURIComponent(tag)}`} />
 						))}
 					</div>
 				)}
-				<a target="_blank" href=`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/shortthoughts/en/${fileName}.md`>
+				<a target="_blank" data-pagefind-ignore href=`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/shortthoughts/en/${fileName}.md`>
 					Edit History
 				</a>
 				<hr />
 			</div>
 			<slot />
-			<Comments />
+			<div data-pagefind-ignore>
+				<Comments />
+			</div>
 		</div>
 	</article>
 </Layout>

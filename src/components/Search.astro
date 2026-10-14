@@ -1,0 +1,87 @@
+---
+// Site search powered by Pagefind. The index is generated after `astro build`,
+// so search only works against a built site (`npm run build && npm run preview`).
+//
+// Typing `@tag` (e.g. `@politics`) filters results to that tag. A tag on its own
+// lists every post with it.
+---
+
+<div class="flex items-center justify-center">
+	<pagefind-modal-trigger compact placeholder="Search"></pagefind-modal-trigger>
+	<pagefind-modal reset-on-close>
+		<pagefind-modal-header>
+			<pagefind-input placeholder="Search posts, or @tag to filter"></pagefind-input>
+			<pagefind-filter-dropdown filter="tag" label="Tags"></pagefind-filter-dropdown>
+		</pagefind-modal-header>
+		<pagefind-modal-body>
+			<pagefind-summary></pagefind-summary>
+			<pagefind-results></pagefind-results>
+		</pagefind-modal-body>
+		<pagefind-modal-footer>
+			<pagefind-keyboard-hints></pagefind-keyboard-hints>
+		</pagefind-modal-footer>
+	</pagefind-modal>
+</div>
+
+<script>
+	import "@pagefind/component-ui";
+	import "@pagefind/component-ui/css";
+	import { getInstanceManager } from "@pagefind/component-ui";
+
+	const TAG_FILTER = "tag";
+	const TAG_PATTERN = /(^|\s)@(\S+)/g;
+
+	type Filters = Record<string, unknown>;
+
+	// Map `@politics` / `@pol` to the canonical "Politics" tag. Exact
+	// (case-insensitive) matches win; otherwise use an unambiguous prefix match.
+	function resolveTag(query: string, known: string[]): string | undefined {
+		const lower = query.toLowerCase();
+		const exact = known.find((tag) => tag.toLowerCase() === lower);
+		if (exact) return exact;
+		const prefixed = known.filter((tag) => tag.toLowerCase().startsWith(lower));
+		return prefixed.length === 1 ? prefixed[0] : undefined;
+	}
+
+	// Patch the underlying Pagefind search so `@tag` tokens become tag filters.
+	// Doing it at this level (rather than in the component instance) lets a lone
+	// `@tag` with no other text still run a filter-only search.
+	const instance = getInstanceManager().getInstance("default") as any;
+	if (!instance.__atTagsPatched__) {
+		instance.__atTagsPatched__ = true;
+		const load = instance.__load__.bind(instance);
+		instance.__load__ = async () => {
+			await load();
+			const pagefind = instance.__pagefind__;
+			if (!pagefind || pagefind.__atTagsPatched__) return;
+			pagefind.__atTagsPatched__ = true;
+			const search = pagefind.search.bind(pagefind);
+			pagefind.search = (term: string | null, options: { filters?: Filters } = {}) => {
+				if (!term || !term.includes("@")) return search(term, options);
+
+				const known = Object.keys(instance.totalFilters?.[TAG_FILTER] ?? {});
+				const atTags: string[] = [];
+				const text = term
+					.replace(TAG_PATTERN, (match: string, lead: string, query: string) => {
+						const tag = resolveTag(query, known);
+						if (!tag) return match;
+						atTags.push(tag);
+						return lead;
+					})
+					.trim();
+				if (!atTags.length) return search(text || term, options);
+
+				// Combine with tags picked from the dropdown; a result must have every tag.
+				const picked = options.filters?.[TAG_FILTER];
+				const tags = [...new Set([...(Array.isArray(picked) ? picked : []), ...atTags])];
+				return search(text || null, { ...options, filters: { ...options.filters, [TAG_FILTER]: tags } });
+			};
+		};
+	}
+
+	// Match Pagefind's palette to the site's class-based dark mode.
+	const root = document.documentElement;
+	const syncTheme = () => root.setAttribute("data-pf-theme", root.classList.contains("dark") ? "dark" : "light");
+	syncTheme();
+	new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ["class"] });
+</script>
