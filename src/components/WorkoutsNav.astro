@@ -5,13 +5,14 @@ const tabs = [
 	{ title: "Regimen", description: "What I do now", href: "/workouts/" },
 	{ title: "History", description: "How I got here", href: "/workouts/history/" },
 	{ title: "Motivation", description: "Why I do it", href: "/workouts/motivation/" },
+	{ title: "Pull-ups", description: "Rep progress", href: "/workouts/pull-ups/" },
 	{ title: "Updates", description: "Progress notes", href: "/workouts/updates/" },
 ];
 
 const path = getUrlWithoutLocale(Astro.url).replace(/\/?$/, "/");
 ---
 
-<nav aria-label="Workout pages" class="not-prose mb-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+<nav aria-label="Workout pages" class="not-prose mb-10 grid grid-cols-2 gap-3 sm:grid-cols-5 [&>*:last-child]:col-span-2 sm:[&>*:last-child]:col-span-1">
 	{tabs.map((tab) => {
 		const active = path === tab.href;
 		return (
