@@ -4,10 +4,16 @@ import Layout from "@layouts/Layout.astro";
 import Container from "@src/components/Container.astro";
 import WorkoutsNav from "@src/components/WorkoutsNav.astro";
 
+// Newest first; the date comes from frontmatter so entries don't repeat it in the body
 const updates = (await getCollection("workoutUpdates")).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf() || a.id.localeCompare(b.id),
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() || b.id.localeCompare(a.id),
 );
-const rendered = await Promise.all(updates.map(async (update) => (await render(update)).Content));
+const rendered = await Promise.all(
+	updates.map(async (update) => ({
+		label: `${update.data.pubDate.toISOString().slice(0, 10)} update${update.data.topic ? ` on ${update.data.topic}` : ""}`,
+		Content: (await render(update)).Content,
+	})),
+);
 ---
 
 <Layout title="Workout Updates" description="Updates on my workouts over time.">
@@ -21,7 +27,15 @@ const rendered = await Promise.all(updates.map(async (update) => (await render(u
 				As a note, updates to numbers and workouts are tracked via git history.
 			</p>
 
-			{rendered.map((Content) => <Content />)}
+			{
+				rendered.map(({ label, Content }) => (
+					<Fragment>
+						<hr />
+						<p><strong>{label}</strong></p>
+						<Content />
+					</Fragment>
+				))
+			}
 		</div>
 	</Container>
 </Layout>

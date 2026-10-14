@@ -56,6 +56,8 @@ const workoutUpdates = defineCollection({
 	}),
 	schema: z.object({
 		pubDate: z.coerce.date(),
+		// Optional subject shown after the date, e.g. "arms" renders "2026-08-18 update on arms"
+		topic: z.string().optional(),
 	}),
 });
 
