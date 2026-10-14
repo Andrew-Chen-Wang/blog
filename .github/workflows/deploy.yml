@@ -25,7 +25,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version-file: '.mise.toml'
           cache: 'npm'
           cache-dependency-path: './package-lock.json'
       - name: Install
