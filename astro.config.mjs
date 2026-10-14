@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import alpinejs from "@astrojs/alpinejs";
+import pagefind from "astro-pagefind";
 import { i18n, filterSitemapByDefaultLocale } from "astro-i18n-aut/integration";
 import { DEFAULT_LOCALE, LOCALES, SITE_URL } from "./src/consts";
 
@@ -37,6 +38,8 @@ export default defineConfig({
 			applyBaseStyles: false,
 		}),
 		alpinejs(),
+		// Indexes the built site for search, and serves the last build's index in `astro dev`
+		pagefind(),
 		i18n({
 			locales,
 			defaultLocale,

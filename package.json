@@ -17,7 +17,7 @@
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
-		"build": "npm run pwa:generate-assets && astro build && pagefind --site dist",
+		"build": "npm run pwa:generate-assets && astro build",
 		"preview": "astro preview",
 		"astro": "astro",
 		"pwa:generate-assets": "pwa-assets-generator --preset minimal public/logo.svg"
@@ -34,6 +34,7 @@
 		"alpinejs": "^3.13.3",
 		"astro": "^5.18.2",
 		"astro-i18n-aut": "^0.7.3",
+		"astro-pagefind": "^2.0.1",
 		"sharp": "^0.33.0",
 		"tailwindcss": "^3.3.6",
 		"workbox-window": "^7.0.0"
@@ -43,7 +44,6 @@
 		"@vite-pwa/assets-generator": "^0.0.11",
 		"astro-icon": "^0.8.2",
 		"astro-seo": "^0.8.0",
-		"pagefind": "^1.5.2",
 		"prettier": "^3.1.0",
 		"prettier-plugin-astro": "^0.12.2",
 		"prettier-plugin-tailwindcss": "^0.5.9"
