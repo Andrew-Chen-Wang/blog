@@ -33,6 +33,7 @@ dev-dist/
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
 .obsidian/graph.json
-.obsidian/plugins/*/data.json
+.obsidian/plugins/
+.obsidian/community-plugins.json
 .trash/
 Thumbs.db
