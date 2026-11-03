@@ -28,3 +28,11 @@ astro_tmp_pages_*
 
 # Service Worker
 dev-dist/
+
+# Obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/graph.json
+.obsidian/plugins/*/data.json
+.trash/
+Thumbs.db
