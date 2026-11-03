@@ -6,9 +6,13 @@ import Title from "@src/components/blog/BlogHeader.astro";
 import Comments from "@src/components/blog/Comments.astro";
 import Tag from "@src/components/Tag.astro";
 
-type Props = CollectionEntry<"shortthoughts">["data"];
+type Props = CollectionEntry<"shortthoughts">["data"] & {
+	// URL section and content folder, so drafts can reuse this layout
+	section?: string;
+	contentDir?: string;
+};
 const fileName = Astro.request.url.split("/").filter(Boolean).slice(-1)[0];
-const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.props as Props;
+const { title, description, pubDate, updatedDate, heroImage, tags, section = "short-thoughts", contentDir = "shortthoughts" } = Astro.props as Props;
 ---
 
 <Layout title={title} description={description}>
@@ -27,11 +31,11 @@ const { title, description, pubDate, updatedDate, heroImage, tags } = Astro.prop
 				{tags && tags.length > 0 && (
 					<div class="flex flex-wrap gap-2 justify-center" data-pagefind-ignore>
 						{tags.map((tag) => (
-							<Tag tag={tag} href={`/short-thoughts/?tag=${encodeURIComponent(tag)}`} />
+							<Tag tag={tag} href={`/${section}/?tag=${encodeURIComponent(tag)}`} />
 						))}
 					</div>
 				)}
-				<a target="_blank" data-pagefind-ignore href=`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/shortthoughts/en/${fileName}.md`>
+				<a target="_blank" data-pagefind-ignore href=`https://github.com/Andrew-Chen-Wang/blog/commits/main/src/content/${contentDir}/en/${fileName}.md`>
 					Edit History
 				</a>
 				<hr />

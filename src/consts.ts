@@ -13,6 +13,8 @@ export const TWITTER_CREATOR: string = "@acwangpython";
 type Page = {
 	title: string;
 	href: string;
+	// Set when the section's posts mark their own content for search instead of indexing the whole page
+	indexesOwnPosts?: boolean;
 };
 
 type NavItem = Page | { title: string; children: Page[] };
@@ -23,6 +25,11 @@ export const SPORATIC_PAGES: Page[] = [
 	{
 		title: "Workouts",
 		href: "/workouts",
+	},
+	{
+		title: "Drafts",
+		href: "/drafts",
+		indexesOwnPosts: true,
 	},
 ];
 

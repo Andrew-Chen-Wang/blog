@@ -33,6 +33,23 @@ const shortthoughts = defineCollection({
 		}),
 });
 
+// Unfinished posts I'm still working out. Listed under "Sporatic"
+const drafts = defineCollection({
+	loader: glob({
+		pattern: ["**/*.md"],
+		base: "./src/content/drafts"
+	}),
+	schema: ({ image }) =>
+		z.object({
+			title: z.string(),
+			description: z.string(),
+			pubDate: z.coerce.date(),
+			updatedDate: z.coerce.date().optional(),
+			heroImage: image().optional(),
+			tags: z.array(z.string()).optional(),
+		}),
+});
+
 const recipes = defineCollection({
 	loader: glob({
 		pattern: ["**/*.md"],
@@ -86,4 +103,4 @@ const politicalTopicLearnings = defineCollection({
 	}),
 });
 
-export const collections = { blog, shortthoughts, recipes, workoutUpdates, politicalTopics, politicalTopicLearnings };
+export const collections = { blog, shortthoughts, drafts, recipes, workoutUpdates, politicalTopics, politicalTopicLearnings };
