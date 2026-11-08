@@ -1,0 +1,10 @@
+---
+title: Family Ties Correlate with Institutional Governance Stability
+description: A response to an article that attacks family as an institution
+pubDate: 2026-11-08 13:48
+tags:
+  - Politics
+---
+I read a blog post [Yes, strong family ties are bad for society and development](https://statsandsociety.substack.com/p/yes-strong-family-ties-are-bad-for) that looks at the quantitative evidence for family being bad for societal progress. In reality, the author and the linked paper ties family kinship as the cause for poor governance. Family ties is seen as a prevention for good governance, and I think that's an extremely Western bias as Europe and America has people rely heavily on institutions. The article lists several reasons family ties are inefficient governing tools. My counter example is, because immediate and extended families are so far removed from each other, institutions have to step in and pay for several welfare benefits such as long-term care for the elderly where Asian countries have traditions where children take care of their parents in old age.
+
+Regardless, I want to dispel the kinship cause issue. China is a transitioning state of kinship based governance. If you look at Chinese history, it's full of war and anarchy. Family became important for building stability, financing, and networks. Hence, the Chinese language has more words to describe extended family compared to English (though old English did too like different words for uncle based on which side the uncle was on before simplifying over time due to more stable institutional governance) as talking to family was very important in ancient time. The Chinese and old English language reflects that history of kinship being a necessity, and modern English reflects the growing stability. This article is reasoned backwards where strong family ties are somehow the causation but rather the correlation of anarchical states causing the necessity for strong family ties.
